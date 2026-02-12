@@ -1,0 +1,134 @@
+valentine.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Roshini ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+#tapText {
+    font-size: 24px;
+    animation: pulse 1.5s infinite;
+    z-index: 2;
+}
+
+#surprise {
+    display: none;
+    z-index: 2;
+}
+
+img {
+    width: 250px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px hotpink;
+}
+
+h1 {
+    margin-top: 20px;
+    line-height: 1.4;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+</style>
+</head>
+
+<body ontouchstart="startLove()" onclick="startLove()">
+
+<div id="tapText">
+    💖 Touch the screen 💖
+</div>
+
+<div id="surprise">
+    <img src="love.jpg" alt="Roshini">
+    <h1>
+        Roshini,<br>
+        will you be my Valentine<br>
+        for the rest of my life? ❤️
+    </h1>
+</div>
+
+<!-- Romantic Music -->
+<audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Fireworks Canvas -->
+<canvas id="fireworks"></canvas>
+
+<script>
+function startLove() {
+    document.getElementById("tapText").style.display = "none";
+    document.getElementById("surprise").style.display = "block";
+    document.getElementById("music").play();
+    launchFireworks();
+}
+
+// Fireworks animation
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function launchFireworks() {
+    setInterval(() => {
+        for (let i = 0; i < 25; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                alpha: 1,
+                speedX: (Math.random() - 0.5) * 4,
+                speedY: (Math.random() - 0.5) * 4
+            });
+        }
+    }, 300);
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,105,180,${p.alpha})`;
+        ctx.fill();
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.alpha -= 0.02;
+        if (p.alpha <= 0) particles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
+	◦	
